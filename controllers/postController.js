@@ -7,7 +7,7 @@ module.exports.create = async (req, res, next) => {
 
     post.save((error) => {
         if (error) return next(error.message);
-        res.status(201).json({ message: 'Post created successfully!', post });
+        res.status(201).json({ message: 'Post created!', post });
     });
 }
 
