@@ -11,10 +11,10 @@ module.exports.create = async (req, res, next) => {
     });
 }
 
-module.exports.read = (req, res, next) => {
+module.exports.read = async (req, res, next) => {
     const id = req.params.id;
 
-    Post.findById(id, (error, post) => {
+    return await Post.findById(id, (error, post) => {
         if (error) return next(error.message);
         res.status(200).send(post);
     });
@@ -29,19 +29,19 @@ module.exports.readAll = async (req, res, next) => {
     }
 }
 
-module.exports.update = (req, res, next) => {
+module.exports.update = async (req, res, next) => {
     const id = req.params.id;
 
-    Post.findByIdAndUpdate(id, { $set: req.body }, (error, post) => {
+    return await Post.findByIdAndUpdate(id, { $set: req.body }, (error, post) => {
         if (error) return next(error.message);
         res.status(200).json({ message: 'Post updated!', post});
     });
 }
 
-module.exports.delete = (req, res, next) => {
+module.exports.delete = async (req, res, next) => {
     const id = req.params.id;
 
-    Post.findByIdAndRemove(id, (error, post) => {
+    return await Post.findByIdAndRemove(id, (error, post) => {
         if (error) return next(error.message);
         res.status(200).json({ message: 'Post deleted!', post });
     });

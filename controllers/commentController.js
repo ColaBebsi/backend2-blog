@@ -3,7 +3,7 @@ const Comment = require('../models/Comment');
 module.exports = {
     create: async (req, res) => {
         const postId = req.params.postId;
-        const { content } = req.body;
+        const content = req.body.content;
 
         const comment = await Comment.create({ postId, content });
 
