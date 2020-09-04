@@ -1,14 +1,14 @@
 const Post = require('../models/Post');
 
-module.exports.create = async (req, res, next) => {
+module.exports.create = async (req, res) => {
     const { title, content } = req.body;
-    
-    const post = await Post.create({ title, content });
 
-    post.save((error) => {
-        if (error) return next(error.message);
+    try {
+        const post = await Post.create({ title, content });
         res.status(201).json({ message: 'Post created!', post });
-    });
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
 }
 
 module.exports.read = async (req, res, next) => {
